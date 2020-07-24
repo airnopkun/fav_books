@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Sign In</title>
+            {% load static %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
+        </head>
+        <body>
+            <div id="forms" class="container-fluid">
+                <div id="registration-form" class="col-4">
+                    <h1>Registration</h1>
+                    {% if source == "registration" %}
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                    <form action='/register' method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="first_name">First Name: </label>
+                            <input class="form-control" placeholder="First Name" type='text' id="first_name" name="first_name">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="last_name">Last Name: </label>
+                            <input class="form-control" placeholder="Last Name" type='text' id="last_name" name="last_name">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="reg_email">Email: </label>
+                            <input class="form-control" placeholder="Email Address" type='text' id="reg_email" name="reg_email">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="reg_password">Password: </label>
+                            <input class="form-control" type='text' id="reg_password" name="reg_password">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="confirm">Confirm Password: </label>
+                            <input class="form-control" type='text' id="confirm" name="confirm">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="birthday">Birthday: </label>
+                            <input class="form-control" type='date' id="birthday" name="birthday">
+                        </div><br>
+                        <button type='submit' class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+                <div id="login-form" class="col-4">
+                    <h1>Login</h1>
+                    {% if source == "login" %}
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endif %}
+                    <form action='/login' method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="email">Email: </label>
+                            <input class="form-control" placeholder="Email Address" type='text' id="email" name="email">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="password">Password: </label>
+                            <input class="form-control" type='text' id="password" name="password">
+                        </div><br>
+                        <button type='submit' class="btn btn-primary">Log In</button>
+                    </form>
+                </div>
+            </div>
+        </body>
+    </html>

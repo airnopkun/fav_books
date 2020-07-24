@@ -1,0 +1,9 @@
+#head {
+    display: flex;
+    justify-content: space-between;
+}
+
+#columns-container{
+    display: flex;
+    justify-content: space-between;
+}

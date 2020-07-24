@@ -1,0 +1,9 @@
+#head {
+    display: flex;
+    justify-content: space-between;
+}
+
+#forms {
+    display: flex;
+    justify-content: space-between;
+}

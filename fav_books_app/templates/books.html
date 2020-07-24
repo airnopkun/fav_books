@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Books</title>
+            {% load static %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="{% static 'css/books.css' %}">
+        </head>
+        <body>
+            <div id="head">
+                <h1>Welcome, {{user.first_name}}!</h1>
+                <a href="/logout">Log Out</a>
+            </div>
+            <div id="forms" class="container-fluid">
+                <div id="add-book-form" class="col-4">
+                    <h1>Add a Favorite Book</h1>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <form action='/add_book' method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="title">Title: </label>
+                            <input class="form-control" placeholder="Title" type='text' id="title" name="title">
+                        </div><br>
+                        <div class="form-group">
+                            <label for="description">Description: </label>
+                            <input class="form-control" placeholder="Add Description" type='text' id="description" name="description">
+                        </div><br>
+                        <button type='submit' class="btn btn-primary">Add Book</button>
+                    </form>
+                </div>
+                <div id="book-list">
+                    <h1>All Books</h1>
+                    {% for book in books %}
+                        <a href="/books/{{book.id}}">{{book.title}}</a>
+                        <p>(added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}})</p>
+                        {% if book in fav_books %}
+                            <p>this is one of your favorites</p><br>
+                        {% else %}
+                            <a href="/add_fav/{{book.id}}">Add to Favorites</a><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </body>
+    </html>
